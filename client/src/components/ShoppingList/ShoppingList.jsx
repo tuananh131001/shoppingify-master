@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function ShoppingList() {
   const [items, setItems] = useState(null);
   useEffect(() => {
-    fetch("http://localhost:8000/items")
+    fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
       .then((res) => {
         return res.json();
       })
