@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const cors = require("cors")
+
+
 app.use(
     cors({
         origin: "*"
@@ -18,7 +20,7 @@ mongoose
 
 app.use(express.json());
 const itemsRouter = require("./routes/items");
-app.use("/items", itemsRouter);
+app.use("/api/items", itemsRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
