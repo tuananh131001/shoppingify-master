@@ -18,10 +18,12 @@ router.get("/:id", getItem, (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+
   const item = new Item({
     name: req.body.name,
-    amount: req.body.amount,
+    items: req.body.items,
   });
+
   try {
     const newItem = await item.save();
     res.status(201).json(newItem);

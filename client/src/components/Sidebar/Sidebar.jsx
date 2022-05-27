@@ -4,8 +4,10 @@ import {
   faBars,
   faArrowRotateRight,
   faChartColumn,
-  faCartShopping
-} from "@fortawesome/free-solid-svg-icons"; 
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
 function Sidebar() {
   return (
     <>
@@ -118,15 +120,17 @@ function Sidebar() {
             />
           </svg>
         </div>
-        <div className="flex flex-col gap-11">
-            
-          <FontAwesomeIcon icon={faBars} />
-          <FontAwesomeIcon icon={faArrowRotateRight} />
+        <div className="flex flex-col gap-11 items-center justify-center">
+          <Link to="/list">
+            <FontAwesomeIcon icon={faBars} />
+          </Link>
+          <Link to="/">
+            <FontAwesomeIcon icon={faArrowRotateRight} />
+          </Link>
           <FontAwesomeIcon icon={faChartColumn} />
         </div>
         <div className="">
-        <FontAwesomeIcon icon={faCartShopping} />
-
+          <FontAwesomeIcon icon={faCartShopping} />
         </div>
       </aside>
     </>

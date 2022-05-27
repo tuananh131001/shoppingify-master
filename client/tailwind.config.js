@@ -15,6 +15,7 @@ module.exports = {
         "person-pattern": "url('../src/images/icon-person.svg')",
       }),
       colors: {
+        bannerBg : "#80485B",
         strongCyan: "hsl(172, 67%, 45%)",
         veryDarkCyan: "hsl(183, 100%, 15%)",
         darkGrayishCyan: "hsl(186, 14%, 43%)",
@@ -25,4 +26,5 @@ module.exports = {
       },
     },
   },
+  plugins: [require("daisyui")],
 };
