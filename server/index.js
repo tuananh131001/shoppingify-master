@@ -20,7 +20,7 @@ mongoose
 
 app.use(express.json());
 const itemsRouter = require("./routes/items");
-app.use("/api/items", itemsRouter);
+app.use("/api/list", itemsRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

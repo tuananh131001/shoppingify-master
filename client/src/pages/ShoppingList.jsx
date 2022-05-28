@@ -2,10 +2,10 @@ import React from "react";
 import Shopping from "../components/Shopping/Shopping";
 import { useEffect, useState } from "react";
 
-import Banner from '../components/Banner/Banner'
+import Banner from "../components/Banner/Banner";
 let fetchItem = (setItems) => {
-  // fetch("http://localhost:5000/api/items")
-  fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
+  fetch("http://localhost:5000/api/items")
+    // fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
 
     .then((res) => {
       return res.json();
@@ -16,6 +16,8 @@ let fetchItem = (setItems) => {
 };
 
 function ShoppingList() {
+  document.body.style.backgroundColor = "#fff";
+
   const [shoppings, setShopping] = useState(null);
   useEffect(() => {
     fetchItem(setShopping);
@@ -26,8 +28,10 @@ function ShoppingList() {
         {shoppings &&
           shoppings.map(({ _id, name, items }) => (
             <Shopping key={_id} name={name} items={items}></Shopping>
-          ))}
-          {/* <Banner></Banner> */}
+            // console.log(_id)
+          ))
+          }
+        {/* <Banner></Banner> */}
       </div>
     </>
   );

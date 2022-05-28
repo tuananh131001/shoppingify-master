@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-function Item( {items} ) {
+function Item({ items , category_id }) {
   return (
     <>
       <div className="p-2 flex justify-between w-32  items-center shadow-md rounded-lg">

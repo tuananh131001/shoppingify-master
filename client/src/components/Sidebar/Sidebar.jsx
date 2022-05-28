@@ -9,6 +9,8 @@ import {
 import { Link } from "react-router-dom";
 
 function Sidebar() {
+
+  
   return (
     <>
       <aside className="flex flex-none py-3 p-2 bg-yellow-300 flex-col justify-between max-w-min bg-base-100 h-screen">
@@ -121,7 +123,7 @@ function Sidebar() {
           </svg>
         </div>
         <div className="flex flex-col gap-11 items-center justify-center">
-          <Link to="/list">
+          <Link to="/list" >
             <FontAwesomeIcon icon={faBars} />
           </Link>
           <Link to="/">

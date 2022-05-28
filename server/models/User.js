@@ -10,10 +10,17 @@ const itemList = new mongoose.Schema({
     default: 0,
   },
 });
-const shoppingList = new mongoose.Schema({
+
+const categoryList = new mongoose.Schema({
   name: String,
   items: [itemList],
 });
 
+const userList = new mongoose.Schema({
+  name: String,
+  categories: [categoryList],
+});
+
 module.exports = mongoose.model("Item", itemList);
-module.exports = mongoose.model("Shopping", shoppingList);
+module.exports = mongoose.model("Categories", categoryList);
+module.exports = mongoose.model("User", userList);
