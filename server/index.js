@@ -21,8 +21,13 @@ mongoose
 app.use(express.json());
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes);
+
 const categoryRoutes = require("./routes/categoryRoutes");
 app.use("/api/categories", categoryRoutes);
+
+const itemsRoutes = require("./routes/itemRoutes.js");
+app.use("/api/items", itemsRoutes);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

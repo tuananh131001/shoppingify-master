@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
+const HOST = "http://full-stack-shoppingify.herokuapp.com"
+
 let fetchItem = (setCategory) => {
-  fetch("http://localhost:5000/api/categories")
+  fetch(HOST + "/api/categories")
     .then((res) => {
       return res.json();
     })
@@ -16,7 +18,16 @@ function AddItem() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    const url = await fetch(HOST + "/api/items", requestOptions);
+    const json = await url.json();
+    console.log(json);
+  };
   const [category, setCategory] = useState(null);
 
   useEffect(() => {
@@ -32,7 +43,10 @@ function AddItem() {
           {...register("name", { required: true, maxLength: 100 })}
           className="input input-bordered w-full max-w-xs"
         />
-        <select {...register("item")} className="select select-bordered w-full max-w-xs">
+        <select
+          {...register("category")}
+          className="select select-bordered w-full max-w-xs"
+        >
           {category
             ? category.map(({ _id, name }) => (
                 <option value={_id}>{name}</option>

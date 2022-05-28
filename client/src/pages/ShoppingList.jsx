@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 import Banner from "../components/Banner/Banner";
 let fetchItem = (setItems) => {
-  fetch("http://localhost:5000/api/items")
-    // fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
+  // fetch("http://localhost:5000/api/items")
+    fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
 
     .then((res) => {
       return res.json();

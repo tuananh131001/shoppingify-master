@@ -19,14 +19,15 @@ const addItemToCategory = function (categoryId, item) {
   );
 };
 
+  
 const postItem = async (req, res) => {
-  const category = new Category({
+  const item = new Item({
     name: req.body.name,
   });
-  category.users.push(req.body.user)
 
   try {
-    const newItem = await category.save();
+    let newItem = await item.save();
+    await addItemToCategory(req.body.category,newItem)
     res.status(201).json(newItem);
   } catch (err) {
     res.status(400).json({ message: err.message });
