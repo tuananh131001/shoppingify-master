@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const HOST = "http://full-stack-shoppingify.herokuapp.com"
+const HOST = "http://localhost:5000";
+
 
 let fetchItem = (setCategory) => {
   fetch(HOST + "/api/categories")

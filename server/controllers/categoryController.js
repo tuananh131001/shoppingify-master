@@ -22,7 +22,7 @@ const postCategory = async (req, res) => {
   const category = new Category({
     name: req.body.name,
   });
-  category.users.push(req.body.user)
+  category.users.push(req.body.user);
 
   try {
     const newItem = await category.save();
@@ -32,19 +32,18 @@ const postCategory = async (req, res) => {
   }
 };
 
-const deleteCategory =
-  (getId,
-  async (req, res) => {
-    try {
-      await res.category.remove();
-      res.json({ message: "Deleted " });
-    } catch (error) {
-      res.status(500).json({ message: err.message });
-    }
-  });
+const deleteCategory = async (req, res) => {
+  try {
+    res.category = await getId(req, res);
+    await res.category.remove();
+    res.json({ message: "Deleted " });
+  } catch (error) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-async function getId(req, res, next) {
-  let user;
+async function getId(req, res) {
+  let category;
   try {
     category = await Category.findById(req.params.id);
     if (category == null) {
@@ -53,8 +52,7 @@ async function getId(req, res, next) {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  res.category = usecategoryr;
-  next();
+  return category;
 }
 
 module.exports = {

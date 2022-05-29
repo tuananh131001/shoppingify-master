@@ -45,7 +45,6 @@ const deleteItem = (async (req, res) => {
     await res.item.remove();
     res.json({ message: "Deleted " });
   } catch (error) {
-    res.send(item)
     res.status(500).json({ message: err.message });
   }
 });
