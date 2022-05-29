@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const HOST = "http://localhost:5000";
+const HOST = import.meta.env.VITE_URL;
 
 let fetchItem = (setCategory) => {
   fetch(HOST + "/api/categories")
@@ -12,22 +12,25 @@ let fetchItem = (setCategory) => {
       setCategory(data);
     });
 };
+
+let submitForm = async (data) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+  const url = await fetch(HOST + "/api/items", requestOptions);
+  const json = await url.json();
+  console.log(json);
+};
+
 function AddItem() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    const url = await fetch(HOST + "/api/items", requestOptions);
-    const json = await url.json();
-    console.log(json);
-  };
+  const onSubmit = async (data) => await submitForm(data);
   const [category, setCategory] = useState(null);
 
   useEffect(() => {
@@ -37,7 +40,10 @@ function AddItem() {
     <>
       {" "}
       <main className=" bg-slate-100 flex flex-col flex-1 px-4 py-5 gap-5">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col h-full g-1 ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col h-full g-1 "
+        >
           <label class="label">
             <span class="label-text">Name</span>
           </label>

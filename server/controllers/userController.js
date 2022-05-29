@@ -12,17 +12,36 @@ const getUser = async (req, res) => {
 const postUser = async (req, res) => {
   const user = new User({
     name: req.body.name,
-    categories: req.body.categories,
+    items: req.body.item,
   });
 
   try {
-    const newItem = await user.save();
+    const newUser = await user.save();
+
     res.status(201).json(newItem);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
-
+const addItemToCart = function (itemId, userId, amount) {
+  return User.findByIdAndUpdate(
+    userId,
+    { $push: { items: { itemid: itemId, amount: amount } } },
+    { new: true, useFindAndModify: false }
+  );
+};
+const addCart = async (req, res) => {
+  try {
+    const cart = await addItemToCart(
+      req.body.item,
+      req.body.user,
+      req.body.amount
+    );
+    res.status(201).json(cart);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 const deleteUser =
   (getId,
   async (req, res) => {
@@ -52,4 +71,5 @@ module.exports = {
   getUser,
   postUser,
   deleteUser,
+  addCart,
 };
