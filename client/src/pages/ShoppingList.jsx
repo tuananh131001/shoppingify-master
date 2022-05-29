@@ -1,12 +1,11 @@
 import React from "react";
 import Shopping from "../components/Shopping/Shopping";
 import { useEffect, useState } from "react";
-
 import Banner from "../components/Banner/Banner";
+
 let fetchItem = (setItems) => {
   // fetch("http://localhost:5000/api/items")
-    fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
-
+  fetch("https://full-stack-shoppingify.herokuapp.com/api/items")
     .then((res) => {
       return res.json();
     })
@@ -28,10 +27,7 @@ function ShoppingList() {
         {shoppings &&
           shoppings.map(({ _id, name, items }) => (
             <Shopping key={_id} name={name} items={items}></Shopping>
-            // console.log(_id)
-          ))
-          }
-        {/* <Banner></Banner> */}
+          ))}
       </div>
     </>
   );

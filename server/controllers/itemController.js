@@ -10,7 +10,13 @@ const getItem = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const getItemId =
+  (
+  async (req, res) => {
+    res.item = await getId(req,res)
 
+    res.send(res.item);
+  });
 const addItemToCategory = function (categoryId, item) {
   return Category.findByIdAndUpdate(
     categoryId,
@@ -19,7 +25,6 @@ const addItemToCategory = function (categoryId, item) {
   );
 };
 
-  
 const postItem = async (req, res) => {
   const item = new Item({
     name: req.body.name,
@@ -27,40 +32,41 @@ const postItem = async (req, res) => {
 
   try {
     let newItem = await item.save();
-    await addItemToCategory(req.body.category,newItem)
+    await addItemToCategory(req.body.category, newItem);
     res.status(201).json(newItem);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-const deleteItem =
-  (getId,
-  async (req, res) => {
-    try {
-      await res.category.remove();
-      res.json({ message: "Deleted " });
-    } catch (error) {
-      res.status(500).json({ message: err.message });
-    }
-  });
-
-async function getId(req, res, next) {
-  let user;
+const deleteItem = (async (req, res) => {
   try {
-    category = await Category.findById(req.params.id);
-    if (category == null) {
-      return res.status(404).json({ message: "Cannot find subscriber" });
+    res.item = await getId(req,res)
+    await res.item.remove();
+    res.json({ message: "Deleted " });
+  } catch (error) {
+    res.send(item)
+    res.status(500).json({ message: err.message });
+  }
+});
+
+async function getId(req, res) {
+  let item;
+  try {
+    item = await Item.findById(req.params.id);
+    if (item == null) {
+      return res.status(404).json({ message: "Cannot find item" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  res.category = usecategoryr;
-  next();
+  return item;
+  
 }
 
 module.exports = {
   getItem,
   postItem,
   deleteItem,
+  getItemId,
 };
