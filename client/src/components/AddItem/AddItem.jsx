@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 
 const HOST = "http://localhost:5000";
 
-
 let fetchItem = (setCategory) => {
   fetch(HOST + "/api/categories")
     .then((res) => {
@@ -37,25 +36,64 @@ function AddItem() {
   return (
     <>
       {" "}
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <input
-          type="text"
-          placeholder="name"
-          {...register("name", { required: true, maxLength: 100 })}
-          className="input input-bordered w-full max-w-xs"
-        />
-        <select
-          {...register("category")}
-          className="select select-bordered w-full max-w-xs"
-        >
-          {category
-            ? category.map(({ _id, name }) => (
-                <option value={_id}>{name}</option>
-              ))
-            : null}
-        </select>
-        <input type="submit" className="btn" />
-      </form>
+      <main className=" bg-slate-100 flex flex-col flex-1 px-4 py-5 gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col h-full g-1 ">
+          <label class="label">
+            <span class="label-text">Name</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter the name"
+            {...register("name", { required: true, maxLength: 100 })}
+            className="input input-bordered w-full max-w-xs"
+          />
+
+          <label class="label">
+            <span class="label-text">Note (optional)</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter the name"
+            {...register("name", { required: true, maxLength: 100 })}
+            className="input input-bordered w-full max-w-xs"
+          />
+
+          <label class="label">
+            <span class="label-text">Image (optional)</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter the name"
+            {...register("name", { required: true, maxLength: 100 })}
+            className="input input-bordered w-full max-w-xs"
+          />
+          <label class="label">
+            <span class="label-text">Category</span>
+          </label>
+
+          <select
+            {...register("category")}
+            className="select select-bordered w-full max-w-xs"
+          >
+            {category
+              ? category.map(({ _id, name }) => (
+                  <option value={_id}>{name}</option>
+                ))
+              : null}
+          </select>
+
+          <div className="flex justify-center gap-5 mt-auto ">
+            <button
+              type="cancel"
+              className="btn btn-ghost"
+              onclick="javascript:window.location='http://stackoverflow.com';"
+            >
+              cancel
+            </button>
+            <input type="submit" className="btn" />
+          </div>
+        </form>
+      </main>
     </>
   );
 }

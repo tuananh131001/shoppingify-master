@@ -13,7 +13,6 @@ let getCategory = (setShopping) => {
     });
 };
 function ShoppingList() {
-  document.body.style.backgroundColor = "#fff";
 
   const [shoppings, setShopping] = useState(null);
 
@@ -22,12 +21,14 @@ function ShoppingList() {
   }, []);
   return (
     <>
-      <div className=" bg-slate-100 flex flex-col flex-1 px-4 py-5 gap-5">
-        {shoppings &&
-          shoppings.map(({ _id, name, items }) => (
-            <Shopping key={_id} name={name} items={items}></Shopping>
-          ))}
-      </div>
+      <main className="bg-slate-100 ">
+        <div className="  flex flex-col flex-1 px-4 py-5 gap-5">
+          {shoppings &&
+            shoppings.map(({ _id, name, items }) => (
+              <Shopping key={_id} name={name} items={items}></Shopping>
+            ))}
+        </div>
+      </main>
     </>
   );
 }
