@@ -34,21 +34,11 @@ const postUser = async (req, res) => {
   }
 };
 const addItemToCart = function (category_id, itemId, userId, amount) {
-  User.findByIdAndUpdate(
-    userId,
+  return User.updateOne(
+    { cart: { $elemMatch: { _id: category_id } } },
     {
-      $addToSet: { cart: { _id: category_id } },
-    },
-
-    { new: true, useFindAndModify: false }
-  );
-  return User.findByIdAndUpdate(
-    userId,
-    {
-      $addToSet: { items: { _id: itemId, amount: amount } },
-    },
-
-    { new: true, useFindAndModify: false }
+      $addToSet: { "cart.$.items": { _id: itemId, amount: amount } },
+    }
   );
 };
 const addCart = async (req, res) => {
