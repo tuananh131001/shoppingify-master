@@ -9,6 +9,16 @@ const getUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+const getUserById = async (req, res) => {
+  try {
+    res.user = await getId(req, res);
+    res.send(res.user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const postUser = async (req, res) => {
   const user = new User({
     name: req.body.name,
@@ -26,7 +36,7 @@ const postUser = async (req, res) => {
 const addItemToCart = function (itemId, userId, amount) {
   return User.findByIdAndUpdate(
     userId,
-    { $push: { items: { itemid: itemId, amount: amount } } },
+    { $addToSet: { items: { _id: itemId, amount: amount } } },
     { new: true, useFindAndModify: false }
   );
 };
@@ -53,18 +63,17 @@ const deleteUser =
     }
   });
 
-async function getId(req, res, next) {
+async function getId(req, res) {
   let user;
   try {
     user = await User.findById(req.params.id);
-    if (item == null) {
+    if (user == null) {
       return res.status(404).json({ message: "Cannot find subscriber" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  res.user = user;
-  next();
+  return user;
 }
 
 module.exports = {
@@ -72,4 +81,5 @@ module.exports = {
   postUser,
   deleteUser,
   addCart,
+  getUserById,
 };

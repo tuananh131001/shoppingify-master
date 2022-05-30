@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 function Banner() {
   return (
     <>
-      <main className=" bg-yellow-100 flex flex-col flex-1 px-4 py-5 gap-5">
       <div className=" bg-bannerBg h-28 flex justify-between p-5 rounded-2xl">
         {" "}
         <svg
@@ -42,7 +41,6 @@ function Banner() {
           </Link>
         </section>
       </div>
-      </main>
     </>
   );
 }

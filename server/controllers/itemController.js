@@ -10,13 +10,11 @@ const getItem = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-const getItemId =
-  (
-  async (req, res) => {
-    res.item = await getId(req,res)
+const getItemId = async (req, res) => {
+  res.item = await getId(req, res);
 
-    res.send(res.item);
-  });
+  res.send(res.item);
+};
 const addItemToCategory = function (categoryId, item) {
   return Category.findByIdAndUpdate(
     categoryId,
@@ -32,6 +30,11 @@ const postItem = async (req, res) => {
 
   try {
     let newItem = await item.save();
+    await Item.findByIdAndUpdate(
+      newItem._id,
+      { $push: { categories: req.body.category } },
+      { new: true, useFindAndModify: false }
+    );
     await addItemToCategory(req.body.category, newItem);
     res.status(201).json(newItem);
   } catch (err) {
@@ -39,15 +42,15 @@ const postItem = async (req, res) => {
   }
 };
 
-const deleteItem = (async (req, res) => {
+const deleteItem = async (req, res) => {
   try {
-    res.item = await getId(req,res)
+    res.item = await getId(req, res);
     await res.item.remove();
     res.json({ message: "Deleted " });
   } catch (error) {
     res.status(500).json({ message: err.message });
   }
-});
+};
 
 async function getId(req, res) {
   let item;
@@ -60,7 +63,6 @@ async function getId(req, res) {
     return res.status(500).json({ message: err.message });
   }
   return item;
-  
 }
 
 module.exports = {
