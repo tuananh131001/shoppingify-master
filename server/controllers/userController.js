@@ -33,16 +33,28 @@ const postUser = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-const addItemToCart = function (itemId, userId, amount) {
+const addItemToCart = function (category_id, itemId, userId, amount) {
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $addToSet: { cart: { _id: category_id } },
+    },
+
+    { new: true, useFindAndModify: false }
+  );
   return User.findByIdAndUpdate(
     userId,
-    { $addToSet: { items: { _id: itemId, amount: amount } } },
+    {
+      $addToSet: { items: { _id: itemId, amount: amount } },
+    },
+
     { new: true, useFindAndModify: false }
   );
 };
 const addCart = async (req, res) => {
   try {
     const cart = await addItemToCart(
+      req.body.category_id,
       req.body.item,
       req.body.user,
       req.body.amount

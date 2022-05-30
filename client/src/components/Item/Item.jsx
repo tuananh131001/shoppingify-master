@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 
 const HOST = import.meta.env.VITE_URL;
 
-let addCart = async (data) => {
+let addCart = async (data,category_id) => {
   const dataToSubmit = {
+    category_id: category_id,
     item: data._id,
-    user: "62923383dbb7a1bbfdb83e79",
+    user: "6294d4f0121369855badf75b",
     amount: 0,
   };
   // console.log(dataToSubmit)
@@ -43,7 +44,7 @@ function Item({ items, category_id }) {
       <div className=" bg-white p-2 flex justify-between w-32  items-center shadow-md rounded-lg">
         {" "}
         <h1>{itemDetail.name}</h1>
-        <FontAwesomeIcon icon={faPlus} onClick={(x) => addCart(itemDetail)} />
+        <FontAwesomeIcon icon={faPlus} onClick={(x) => addCart(itemDetail,category_id)} />
       </div>
     </>
   );
