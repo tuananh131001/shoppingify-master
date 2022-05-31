@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 
 const HOST = import.meta.env.VITE_URL;
 
-let addCart = async (data,category_id) => {
+let addCart = async (data, category_id) => {
+  console.log(category_id)
   const dataToSubmit = {
-    category_id: category_id,
+    category: category_id,
     item: data._id,
-    user: "6294d4f0121369855badf75b",
+    user: "6295ac03a2235255c75912f1",
     amount: 0,
   };
   // console.log(dataToSubmit)
@@ -18,7 +19,7 @@ let addCart = async (data,category_id) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dataToSubmit),
   };
-  const url = await fetch(HOST + "/api/users/addCart", requestOptions);
+  const url = await fetch(HOST + "/api/carts/", requestOptions);
   const json = await url.json();
   console.log(json);
 };
@@ -44,7 +45,10 @@ function Item({ items, category_id }) {
       <div className=" bg-white p-2 flex justify-between w-32  items-center shadow-md rounded-lg">
         {" "}
         <h1>{itemDetail.name}</h1>
-        <FontAwesomeIcon icon={faPlus} onClick={(x) => addCart(itemDetail,category_id)} />
+        <FontAwesomeIcon
+          icon={faPlus}
+          onClick={(x) => addCart(itemDetail, category_id)}
+        />
       </div>
     </>
   );

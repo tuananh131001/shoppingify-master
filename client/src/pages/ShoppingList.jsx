@@ -25,7 +25,7 @@ function ShoppingList() {
         <div className="  flex flex-col flex-1 px-4 py-5 gap-5">
           {shoppings &&
             shoppings.map(({ _id, name, items }) => (
-              <Shopping key={_id} category_id={_id} name={name} items={items}></Shopping>
+              <Shopping key={_id} category_id={_id} category_name={name} items={items}></Shopping>
             ))}
         </div>
       </main>

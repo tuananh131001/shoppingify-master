@@ -1,6 +1,8 @@
 const express = require("express");
+const res = require("express/lib/response");
 const router = express.Router();
 const User = require("../models/User");
+
 const getUser = async (req, res) => {
   try {
     const users = await User.find();
@@ -33,22 +35,14 @@ const postUser = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-const addItemToCart = function (category_id, itemId, userId, amount) {
-  return User.updateOne(
-    { cart: { $elemMatch: { _id: category_id } } },
-    {
-      $addToSet: { "cart.$.items": { _id: itemId, amount: amount } },
-    }
-  );
-};
+
 const addCart = async (req, res) => {
   try {
-    const cart = await addItemToCart(
-      req.body.category_id,
-      req.body.item,
-      req.body.user,
-      req.body.amount
+    const cart = await User.updateOne(
+      { name: "CHo Sir" },
+      { $addToSet: { cart: { category: req.body.category ,items: req.body.item} } }
     );
+
     res.status(201).json(cart);
   } catch (err) {
     res.status(400).json({ message: err.message });
